@@ -2,7 +2,7 @@ from flask import Flask, render_template, send_from_directory
 import os
 
 app = Flask(__name__)
-MEDIA_FOLDER = '/home/hashem-alsharif/Desktop/Hashem/My Work/NAS/media/nas'
+MEDIA_FOLDER = '/home/hashem-alsharif/Desktop/Hashem/My Work/NAS/media'
 
 @app.route('/')
 def index():
