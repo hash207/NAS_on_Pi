@@ -7,7 +7,7 @@ MEDIA_FOLDER = '/home/hashem-alsharif/Desktop/Hashem/My Work/NAS_on_Pi/media'
 @app.route('/')
 def index():
     files = os.listdir(MEDIA_FOLDER)
-    media_files = [f for f in files if f.endswith(('.mp4', '.mp3'))]
+    media_files = [f for f in files if f.endswith(('.mp4'))]
     return render_template('index.html', media_files=media_files)
 
 @app.route('/media/<filename>')

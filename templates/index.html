@@ -1,14 +1,8 @@
 {% for file in media_files %}
     <div>
         <p>{{ file }}</p>
-        {% if file.endswith('.mp4') %}
-            <video width="320" height="240" controls>
-                <source src="{{ url_for('stream_file', filename=file) }}" type="video/mp4">
-            </video>
-        {% elif file.endswith('.mp3') %}
-            <audio controls>
-                <source src="{{ url_for('stream_file', filename=file) }}" type="audio/mpeg">
-            </audio>
-        {% endif %}
+        <video width="320" height="240" controls>
+            <source src="{{ url_for('stream_file', filename=file) }}" type="video/mp4">
+        </video>
     </div>
 {% endfor %}
