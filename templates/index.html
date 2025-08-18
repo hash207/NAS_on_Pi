@@ -1,8 +1,22 @@
-{% for file in media_files %}
-    <div>
-        <p>{{ file }}</p>
-        <video width="320" height="240" controls>
-            <source src="{{ url_for('stream_file', filename=file) }}" type="video/mp4">
-        </video>
-    </div>
+<h2>Browsing: /{{ current_path }}</h2>
+{% if parent %}
+    <a href="{{ url_for('browse', subpath=parent) }}">⬅️ Up</a>
+{% endif %}
+<ul>
+{% for item in items %}
+    <li>
+        {% if item.type == 'dir' %}
+            <a href="{{ url_for('browse', subpath=item.path) }}">📁 {{ item.name }}</a>
+        {% elif item.type == 'video' %}
+            <details>
+                <summary>🎬 {{ item.name }}</summary>
+                <video width="320" height="240" controls>
+                    <source src="{{ url_for('stream_file', filename=item.path) }}" type="video/mp4">
+                </video>
+            </details>
+        {% else %}
+            📄 {{ item.name }}
+        {% endif %}
+    </li>
 {% endfor %}
+</ul>
