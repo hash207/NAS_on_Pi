@@ -2,7 +2,7 @@ from flask import Flask, render_template, send_from_directory, redirect, url_for
 import os
 
 app = Flask(__name__)
-MEDIA_FOLDER = '/home/hashem-alsharif/Desktop/Hashem/My Work/NAS_on_Pi/media'
+MEDIA_FOLDER = '/home/hashem-alsharif/Desktop/Hashem/My_Work/NAS_on_Pi/media'
 
 def get_dir_contents(subpath=''):
     abs_path = os.path.join(MEDIA_FOLDER, subpath)
@@ -27,6 +27,7 @@ def index():
 def browse(subpath):
     items = get_dir_contents(subpath)
     parent = os.path.dirname(subpath) if subpath else None
+    # Pass through as before; template will include CSS
     return render_template('index.html', items=items, current_path=subpath, parent=parent)
 
 @app.route('/media/<path:filename>')

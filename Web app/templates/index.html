@@ -1,22 +1,30 @@
-<h2>Browsing: /{{ current_path }}</h2>
-{% if parent %}
-    <a href="{{ url_for('browse', subpath=parent) }}">⬅️ Up</a>
-{% endif %}
-<ul>
-{% for item in items %}
-    <li>
-        {% if item.type == 'dir' %}
-            <a href="{{ url_for('browse', subpath=item.path) }}">📁 {{ item.name }}</a>
-        {% elif item.type == 'video' %}
-            <details>
-                <summary>🎬 {{ item.name }}</summary>
-                <video width="320" height="240" controls>
-                    <source src="{{ url_for('stream_file', filename=item.path) }}" type="video/mp4">
-                </video>
-            </details>
-        {% else %}
-            📄 {{ item.name }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NAS Browser</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>NAS Browser</h1>
+        <h2>Browsing: /{{ current_path }}</h2>
+        {% if parent %}
+            <a class="back-link" href="{{ url_for('browse', subpath=parent) }}">⬅️ Back</a>
         {% endif %}
-    </li>
-{% endfor %}
-</ul>
+        <ul class="file-list">
+            {% for item in items %}
+                <li class="file-item {{ item.type }}">
+                    {% if item.type == 'dir' %}
+                        <a href="{{ url_for('browse', subpath=item.path) }}">📁 {{ item.name }}</a>
+                    {% elif item.type == 'video' %}
+                        <a href="{{ url_for('stream_file', filename=item.path) }}" target="_blank">🎬 {{ item.name }}</a>
+                    {% else %}
+                        <a href="{{ url_for('stream_file', filename=item.path) }}" target="_blank">📄 {{ item.name }}</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

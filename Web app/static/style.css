@@ -1,0 +1,72 @@
+body {
+    background: #f4f6fa;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 700px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 32px 40px 40px 40px;
+}
+
+h1 {
+    text-align: center;
+    color: #2d3a4b;
+    margin-bottom: 32px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+.back-link:hover {
+    color: #23527c;
+}
+
+.file-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.file-item {
+    padding: 14px 18px;
+    border-bottom: 1px solid #eaeaea;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    transition: background 0.15s;
+}
+
+.file-item:last-child {
+    border-bottom: none;
+}
+
+.file-item a {
+    color: #2d3a4b;
+    text-decoration: none;
+    flex: 1;
+    transition: color 0.2s;
+    font-size: 1.25em; /* Increased from default to make icons and text bigger */
+}
+
+.file-item.dir a { font-weight: 600; }
+.file-item.video a { color: #e67e22; }
+.file-item.file a { color: #16a085; }
+
+.file-item:hover {
+    background: #f0f4fa;
+}
+
+.file-item a:hover {
+    color: #4a90e2;
+}
