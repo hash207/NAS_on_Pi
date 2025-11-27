@@ -1,0 +1,63 @@
+{% extends 'explorer/base.html' %}
+
+{% block content %}
+<div class="breadcrumbs">
+    <a href="{% url 'explorer_root' %}"><i class="fa-solid fa-house"></i> Home</a>
+    {% if current_path %}
+    <span>/</span>
+    <span>{{ current_path }}</span>
+    {% endif %}
+</div>
+
+{% if parent_path is not None %}
+<div style="margin-bottom: 1rem;">
+    {% if parent_path == "" %}
+    <a href="{% url 'explorer_root' %}" class="back-btn">
+        {% else %}
+        <a href="{% url 'explorer' parent_path %}" class="back-btn">
+            {% endif %}
+            <i class="fa-solid fa-arrow-up"></i> Up Level
+        </a>
+</div>
+{% endif %}
+
+<div class="file-grid">
+    {% for item in items %}
+    <a href="{% url 'explorer' item.path %}" class="file-card"
+        data-type="{% if item.is_dir %}dir{% else %}file{% endif %}">
+        <div class="file-icon">
+            {% if item.is_dir %}
+            <i class="fa-solid fa-folder"></i>
+            {% else %}
+            <i class="fa-solid fa-file"></i>
+            {% endif %}
+        </div>
+        <div class="file-name">{{ item.name }}</div>
+    </a>
+    {% empty %}
+    <div class="empty-state">
+        <i class="fa-regular fa-folder-open" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+        <p>This folder is empty</p>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    // Simple script to add better icons based on file extension
+    document.querySelectorAll('.file-card[data-type="file"]').forEach(card => {
+        const name = card.querySelector('.file-name').textContent.toLowerCase();
+        const icon = card.querySelector('.file-icon i');
+
+        if (name.endsWith('.mp4') || name.endsWith('.mkv') || name.endsWith('.mov')) {
+            card.setAttribute('data-type', 'video');
+            icon.className = 'fa-solid fa-film';
+        } else if (name.endsWith('.mp3') || name.endsWith('.wav') || name.endsWith('.flac')) {
+            card.setAttribute('data-type', 'audio');
+            icon.className = 'fa-solid fa-music';
+        } else if (name.endsWith('.jpg') || name.endsWith('.png') || name.endsWith('.jpeg')) {
+            card.setAttribute('data-type', 'image');
+            icon.className = 'fa-solid fa-image';
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'explorer/base.html' %}
+
+{% block content %}
+<div class="player-container">
+    <div class="player-header">
+        {% if parent_path == "" %}
+        <a href="{% url 'explorer_root' %}" class="back-btn">
+            {% else %}
+            <a href="{% url 'explorer' parent_path %}" class="back-btn">
+                {% endif %}
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </a>
+            <h2>{{ file_name }}</h2>
+    </div>
+
+    {% if mime_type|slice:":5" == "video" %}
+    <video controls autoplay>
+        <source src="{% url 'serve_file' file_path %}" type="{{ mime_type }}">
+        Your browser does not support the video tag.
+    </video>
+    {% elif mime_type|slice:":5" == "audio" %}
+    <div style="text-align: center; padding: 2rem;">
+        <i class="fa-solid fa-music" style="font-size: 5rem; color: var(--primary-color); margin-bottom: 2rem;"></i>
+        <audio controls autoplay style="width: 100%;">
+            <source src="{% url 'serve_file' file_path %}" type="{{ mime_type }}">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    {% else %}
+    <p>Unsupported media type.</p>
+    {% endif %}
+</div>
+{% endblock %}
