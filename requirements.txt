@@ -1,0 +1,21 @@
+# Web & Logic
+Flask==3.1.2
+httpx==0.28.1
+requests==2.32.5
+pydantic==2.12.2
+google-auth==2.41.1
+
+# Interactive (If you use Jupyter on the Pi)
+ipykernel==6.30.1
+
+# Data & Files
+numpy==2.3.3
+sympy==1.14.0
+openpyxl==3.1.5
+python-docx==1.2.0
+pillow==12.1.0
+lxml==6.0.2
+
+# Utilities
+tenacity==9.1.2
+websockets==15.0.1
