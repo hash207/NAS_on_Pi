@@ -4,6 +4,11 @@ from django.shortcuts import render
 from django.http import HttpResponse, FileResponse, Http404
 from django.conf import settings
 from pathlib import Path
+import re
+
+def natural_sort_key(s):
+    """Key function for natural sorting (e.g., 2 before 10)."""
+    return [int(text) if text.isdigit() else text.lower() for text in re.split(r'(\d+)', s)]
 
 def file_explorer(request, path=''):
     # Define the root directory to explore. 
@@ -31,8 +36,8 @@ def file_explorer(request, path=''):
         except PermissionError:
             pass # Handle permission errors gracefully
             
-        # Sort: directories first, then files
-        items.sort(key=lambda x: (not x['is_dir'], x['name'].lower()))
+        # Sort: directories first, then items by natural alphabetical order
+        items.sort(key=lambda x: (not x['is_dir'], natural_sort_key(x['name'])))
         
         # Calculate parent path
         parent_path = None
